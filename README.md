@@ -17,6 +17,32 @@ Financial institutions process millions of transactions daily. Even a small numb
 - Build a fraud risk scoring system
 - Deploy results through a dashboard and API
 
+## Project Architecture
+
+```text
+credit-card-fraud-detection/
+│
+├── data/
+│   ├── raw/
+│   ├── processed/
+│
+├── notebooks/
+│
+├── src/
+│
+├── models/
+│
+├── reports/
+│
+├── app/
+│
+├── api/
+│
+├── requirements.txt
+├── Dockerfile
+└── README.md
+```
+
 ## Exploratory Data Analysis Summary
 
 The dataset contains 284,807 transactions, with only 492 fraud cases. Fraud represents approximately 0.17% of the dataset, making this a highly imbalanced classification problem.
@@ -132,36 +158,47 @@ The API accepts transaction features and returns:
 - Risk category
 - Fraud prediction
 
-### Run API
+```markdown
+## How to Run the Project
+
+### Clone repository
 
 ```bash
-uvicorn api.main:app --reload
+git clone https://github.com/dd4real2k/credit-card-fraud-detection-.git
+cd credit-card-fraud-detection-
 ```
 
-### API documentation
-```bash
-http://127.0.0.1:8000/docs
+## Install Dependencies
 ```
+pip install -r requirements.txt
+```
+## Run preprocessing
+python src/data_preprocessing.py
 
-## Model Artifact Notice
-
-The trained model file is not committed to GitHub because model artifacts can be large. To run the API locally, first train the model using:
-
-```bash
+## Run threshold tuning
 python src/threshold_tuning.py
-```
 
-## Streamlit Dashboard
+## Generate fraud risk scores
+python src/fraud_risk_scoring.py
 
-![Streamlit Dashboard](reports/screenshots/streamlit_dashboard.png)
+## Run Streamlit dashboard
 
-## FastAPI Documentation
+## Run FastAPI server
+uvicorn api.main:app --reload
+---
 
-![FastAPI Docs](reports/screenshots/api_docs.png)
+### Dataset source
 
-## API Prediction Example
+Add this after Business Problem:
 
-![API Prediction](reports/screenshots/api_prediction.png)
+```markdown
+## Dataset
+
+Dataset source:
+https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud
+
+The dataset contains anonymised European credit card transactions made over two days in September 2013.
+
 
 ## Recruiter Summary
 
