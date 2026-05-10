@@ -143,3 +143,12 @@ uvicorn api.main:app --reload
 http://127.0.0.1:8000/docs
 ```
 
+## Model Artifact Notice
+
+The trained model file is not committed to GitHub because model artifacts can be large. To run the API locally, first train the model using:
+
+```bash
+python src/threshold_tuning.py
+```
+
+

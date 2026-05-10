@@ -1,0 +1,7 @@
+.git
+__pycache__
+.ipynb_checkpoints
+.env
+data/raw
+data/processed
+reports/fraud_risk_scored_transactions.csv
