@@ -4,6 +4,12 @@ This project focuses on detecting fraudulent credit card transactions using mach
 
 The aim is to build a professional fraud detection pipeline covering data validation, exploratory analysis, model training, evaluation, fraud risk scoring, dashboarding, and API deployment.
 
+## Dataset
+
+Dataset source: https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud
+
+The dataset contains anonymised European credit card transactions made over two days in September 2013.
+
 ## Business Problem
 
 Financial institutions process millions of transactions daily. Even a small number of fraudulent transactions can result in major financial losses. This project simulates a real-world fraud analytics workflow by identifying suspicious transactions and assigning fraud risk scores.
@@ -21,60 +27,19 @@ Financial institutions process millions of transactions daily. Even a small numb
 
 ```text
 credit-card-fraud-detection/
-│
+├── api/
+├── app/
 ├── data/
 │   ├── raw/
-│   ├── processed/
-│
-├── notebooks/
-│
-├── src/
-│
+│   └── processed/
 ├── models/
-│
+├── notebooks/
 ├── reports/
-│
-├── app/
-│
-├── api/
-│
-├── requirements.txt
+├── src/
 ├── Dockerfile
+├── requirements.txt
 └── README.md
 ```
-
-## Exploratory Data Analysis Summary
-
-The dataset contains 284,807 transactions, with only 492 fraud cases. Fraud represents approximately 0.17% of the dataset, making this a highly imbalanced classification problem.
-
-Key findings:
-- Fraud cases are rare, so accuracy is not suitable as the main evaluation metric.
-- Fraudulent transactions have a higher average transaction amount, but many fraud cases also occur at low values.
-- Time-based transaction patterns may support fraud monitoring.
-- Several anonymised PCA features show stronger relationships with fraud activity.
-
-Because of the imbalance, model evaluation will focus on recall, precision, F1-score, ROC-AUC, and Precision-Recall AUC.
-
-## Data Preprocessing
-
-The dataset was split into training and testing sets using stratified sampling to preserve the fraud distribution across both datasets.
-
-Feature scaling was applied using StandardScaler on:
-- Amount
-- Time
-- Hour
-
-To prevent data leakage, scaling parameters were learned only from the training data and then applied to the test set.
-
-## Baseline Model Training
-
-Three baseline machine learning models were trained and evaluated:
-
-- Logistic Regression
-- Random Forest
-- XGBoost
-
-Because the dataset is highly imbalanced, accuracy was not used as the main performance measure. The main focus was on fraud recall, precision, F1-score, ROC-AUC, and confusion matrix results.
 
 ## Model Performance Summary
 
@@ -84,41 +49,23 @@ Because the dataset is highly imbalanced, accuracy was not used as the main perf
 | Random Forest | 0.96 | 0.72 | 0.83 | 0.9530 |
 | XGBoost | 0.92 | 0.78 | 0.84 | 0.9485 |
 
-## Key Findings
+## Threshold Tuning
 
-XGBoost achieved the best fraud recall, correctly identifying 76 out of 98 fraud cases. This makes it the strongest baseline model for detecting fraudulent transactions.
+The improved XGBoost model was evaluated across several decision thresholds. This is important because the default threshold of 0.5 may not be suitable for fraud detection.
 
-Random Forest achieved the highest fraud precision at 0.96, meaning it produced very few false fraud alerts.
+| Threshold | Precision | Recall | F1-score | False Positives | False Negatives | Fraud Detected |
+|---:|---:|---:|---:|---:|---:|---:|
+| 0.1 | 0.177 | 0.908 | 0.296 | 415 | 9 | 89 |
+| 0.2 | 0.297 | 0.888 | 0.445 | 206 | 11 | 87 |
+| 0.3 | 0.424 | 0.888 | 0.574 | 118 | 11 | 87 |
+| 0.4 | 0.527 | 0.888 | 0.662 | 78 | 11 | 87 |
+| 0.5 | 0.584 | 0.888 | 0.704 | 62 | 11 | 87 |
 
-Logistic Regression achieved the highest ROC-AUC score at 0.9574, showing strong overall class separation, but it detected fewer fraud cases compared with Random Forest and XGBoost.
-
-## Business Interpretation
-
-For fraud detection, recall is very important because missing fraudulent transactions can lead to financial loss. Based on the baseline results, XGBoost is currently the preferred model because it detected the highest number of fraud cases while maintaining strong precision.
-
-However, Random Forest may be useful in situations where reducing false alerts is more important.
-
-## Model Improvement: Threshold Tuning
-
-The baseline XGBoost model was improved using class imbalance weighting and threshold tuning.
-
-Because fraud detection is a high-risk business problem, the default classification threshold of 0.5 may not be the best option. A lower threshold can help detect more fraud cases, although it may increase false positives.
-
-Threshold tuning was applied to compare precision, recall, F1-score, false positives, and false negatives at different decision thresholds.
-
-This allows the model to be selected based on business priorities:
-
-- Higher recall reduces missed fraud cases
-- Higher precision reduces false fraud alerts
-- F1-score balances both precision and recall
+A selected threshold of 0.3 was used for the risk scoring system to prioritise fraud detection while keeping alerts manageable.
 
 ## Fraud Risk Scoring System
 
-A fraud risk scoring system was developed using the improved XGBoost model.
-
-Instead of only predicting whether a transaction is fraudulent or legitimate, the model assigns each transaction a fraud probability and converts it into a risk score between 0 and 100.
-
-Risk categories were defined as:
+The model converts fraud probability into a business-friendly risk score between 0 and 100.
 
 | Risk Score | Risk Category |
 |---:|---|
@@ -126,85 +73,70 @@ Risk categories were defined as:
 | 40–69 | Medium Risk |
 | 70–100 | High Risk |
 
-This makes the model output easier for business users, fraud analysts, and risk teams to interpret.
-
-A selected decision threshold of 0.3 was applied to flag suspicious transactions for further review.
-
-## Streamlit Fraud Monitoring Dashboard
-
-An interactive Streamlit dashboard was created to make the fraud detection results easy to interpret.
-
-The dashboard includes:
-
-- Total transaction count
-- Actual fraud cases
-- Predicted fraud alerts
-- High-risk transaction count
-- Risk category distribution
-- Fraud probability trend
-- Transaction risk explorer
-- Top 20 highest-risk transactions
-
-This dashboard simulates how fraud analysts or risk teams could monitor suspicious transactions and prioritise cases for review.
-
-## FastAPI Fraud Prediction API
-
-A FastAPI endpoint was created to expose the trained fraud detection model for real-time prediction.
-
-The API accepts transaction features and returns:
-
-- Fraud probability
-- Risk score
-- Risk category
-- Fraud prediction
-
-```markdown
 ## How to Run the Project
 
-### Clone repository
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/dd4real2k/credit-card-fraud-detection-.git
 cd credit-card-fraud-detection-
 ```
 
-## Install Dependencies
-```
+### 2. Install dependencies
+
+```bash
 pip install -r requirements.txt
 ```
-## Run preprocessing
+
+### 3. Add the dataset
+
+Download `creditcard.csv` from Kaggle and place it in:
+
+```text
+data/raw/creditcard.csv
+```
+
+### 4. Run preprocessing
+
+```bash
 python src/data_preprocessing.py
+```
 
-## Run threshold tuning
+### 5. Train baseline models
+
+```bash
+python src/train_model.py
+```
+
+### 6. Run threshold tuning
+
+```bash
 python src/threshold_tuning.py
+```
 
-## Generate fraud risk scores
+### 7. Generate fraud risk scores
+
+```bash
 python src/fraud_risk_scoring.py
+```
 
-## Run Streamlit dashboard
+### 8. Run the Streamlit dashboard
 
-## Run FastAPI server
+```bash
+streamlit run app/streamlit_app.py
+```
+
+### 9. Run the FastAPI server
+
+```bash
 uvicorn api.main:app --reload
----
+```
 
-### Dataset source
-
-Add this after Business Problem:
-
-```markdown
-## Dataset
-
-Dataset source:
-https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud
-
-The dataset contains anonymised European credit card transactions made over two days in September 2013.
-
+Then open the API documentation at `/docs`.
 
 ## Recruiter Summary
 
 This project demonstrates an end-to-end fraud detection system using Python, machine learning, risk scoring, dashboarding, API development, and Docker deployment.
-
-It goes beyond basic model training by converting fraud probabilities into business-friendly risk scores and exposing the model through both a Streamlit dashboard and FastAPI endpoint.
 
 The project is relevant to roles in data analytics, fraud analytics, risk monitoring, fintech, cybersecurity analytics, and machine learning operations.
 
