@@ -71,3 +71,17 @@ Logistic Regression achieved the highest ROC-AUC score at 0.9574, showing strong
 For fraud detection, recall is very important because missing fraudulent transactions can lead to financial loss. Based on the baseline results, XGBoost is currently the preferred model because it detected the highest number of fraud cases while maintaining strong precision.
 
 However, Random Forest may be useful in situations where reducing false alerts is more important.
+
+## Model Improvement: Threshold Tuning
+
+The baseline XGBoost model was improved using class imbalance weighting and threshold tuning.
+
+Because fraud detection is a high-risk business problem, the default classification threshold of 0.5 may not be the best option. A lower threshold can help detect more fraud cases, although it may increase false positives.
+
+Threshold tuning was applied to compare precision, recall, F1-score, false positives, and false negatives at different decision thresholds.
+
+This allows the model to be selected based on business priorities:
+
+- Higher recall reduces missed fraud cases
+- Higher precision reduces false fraud alerts
+- F1-score balances both precision and recall
