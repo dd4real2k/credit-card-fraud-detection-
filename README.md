@@ -151,4 +151,63 @@ The trained model file is not committed to GitHub because model artifacts can be
 python src/threshold_tuning.py
 ```
 
+# Credit Card Fraud Detection Using Machine Learning
 
+## Project Overview
+## Business Problem
+## Dataset
+## Project Architecture
+## Exploratory Data Analysis
+## Model Training
+## Model Performance
+## Fraud Risk Scoring
+## Streamlit Dashboard
+## FastAPI Prediction API
+## Docker Deployment
+## How to Run the Project
+## Key Skills Demonstrated
+## Future Improvements
+
+## Streamlit Dashboard
+
+![Streamlit Dashboard](reports/screenshots/streamlit_dashboard.png)
+
+## FastAPI Documentation
+
+![FastAPI Docs](reports/screenshots/api_docs.png)
+
+## API Prediction Example
+
+![API Prediction](reports/screenshots/api_prediction.png)
+
+## Recruiter Summary
+
+This project demonstrates an end-to-end fraud detection system using Python, machine learning, risk scoring, dashboarding, API development, and Docker deployment.
+
+It goes beyond basic model training by converting fraud probabilities into business-friendly risk scores and exposing the model through both a Streamlit dashboard and FastAPI endpoint.
+
+The project is relevant to roles in data analytics, fraud analytics, risk monitoring, fintech, cybersecurity analytics, and machine learning operations.
+
+## Key Skills Demonstrated
+
+- Python data analysis
+- Machine learning classification
+- Imbalanced dataset handling
+- Fraud analytics
+- Risk scoring
+- Model evaluation
+- Streamlit dashboard development
+- FastAPI API development
+- Docker deployment
+- Git and GitHub version control
+- Business problem solving
+
+## Future Improvements
+
+- Add automated model retraining pipeline
+- Deploy API to a cloud platform
+- Add PostgreSQL for transaction storage
+- Add real-time transaction streaming
+- Build authentication for API users
+- Add monitoring for model drift
+- Improve explainability using SHAP
