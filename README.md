@@ -103,3 +103,20 @@ Risk categories were defined as:
 This makes the model output easier for business users, fraud analysts, and risk teams to interpret.
 
 A selected decision threshold of 0.3 was applied to flag suspicious transactions for further review.
+
+## Streamlit Fraud Monitoring Dashboard
+
+An interactive Streamlit dashboard was created to make the fraud detection results easy to interpret.
+
+The dashboard includes:
+
+- Total transaction count
+- Actual fraud cases
+- Predicted fraud alerts
+- High-risk transaction count
+- Risk category distribution
+- Fraud probability trend
+- Transaction risk explorer
+- Top 20 highest-risk transactions
+
+This dashboard simulates how fraud analysts or risk teams could monitor suspicious transactions and prioritise cases for review.
