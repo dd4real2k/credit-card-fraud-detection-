@@ -1,8 +1,10 @@
+from pathlib import Path
+
 import pandas as pd
 import streamlit as st
 
-
-DATA_PATH = "../reports/fraud_risk_scored_transactions.csv"
+BASE_DIR = Path(__file__).resolve().parent.parent
+DATA_PATH = BASE_DIR / "reports" / "fraud_risk_scored_transactions.csv"
 
 
 st.set_page_config(
