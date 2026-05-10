@@ -151,23 +151,6 @@ The trained model file is not committed to GitHub because model artifacts can be
 python src/threshold_tuning.py
 ```
 
-# Credit Card Fraud Detection Using Machine Learning
-
-## Project Overview
-## Business Problem
-## Dataset
-## Project Architecture
-## Exploratory Data Analysis
-## Model Training
-## Model Performance
-## Fraud Risk Scoring
-## Streamlit Dashboard
-## FastAPI Prediction API
-## Docker Deployment
-## How to Run the Project
-## Key Skills Demonstrated
-## Future Improvements
-
 ## Streamlit Dashboard
 
 ![Streamlit Dashboard](reports/screenshots/streamlit_dashboard.png)
