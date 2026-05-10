@@ -28,3 +28,14 @@ Key findings:
 - Several anonymised PCA features show stronger relationships with fraud activity.
 
 Because of the imbalance, model evaluation will focus on recall, precision, F1-score, ROC-AUC, and Precision-Recall AUC.
+
+## Data Preprocessing
+
+The dataset was split into training and testing sets using stratified sampling to preserve the fraud distribution across both datasets.
+
+Feature scaling was applied using StandardScaler on:
+- Amount
+- Time
+- Hour
+
+To prevent data leakage, scaling parameters were learned only from the training data and then applied to the test set.
