@@ -16,3 +16,15 @@ Financial institutions process millions of transactions daily. Even a small numb
 - Prioritise recall and precision for fraud detection
 - Build a fraud risk scoring system
 - Deploy results through a dashboard and API
+
+## Exploratory Data Analysis Summary
+
+The dataset contains 284,807 transactions, with only 492 fraud cases. Fraud represents approximately 0.17% of the dataset, making this a highly imbalanced classification problem.
+
+Key findings:
+- Fraud cases are rare, so accuracy is not suitable as the main evaluation metric.
+- Fraudulent transactions have a higher average transaction amount, but many fraud cases also occur at low values.
+- Time-based transaction patterns may support fraud monitoring.
+- Several anonymised PCA features show stronger relationships with fraud activity.
+
+Because of the imbalance, model evaluation will focus on recall, precision, F1-score, ROC-AUC, and Precision-Recall AUC.
