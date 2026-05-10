@@ -85,3 +85,21 @@ This allows the model to be selected based on business priorities:
 - Higher recall reduces missed fraud cases
 - Higher precision reduces false fraud alerts
 - F1-score balances both precision and recall
+
+## Fraud Risk Scoring System
+
+A fraud risk scoring system was developed using the improved XGBoost model.
+
+Instead of only predicting whether a transaction is fraudulent or legitimate, the model assigns each transaction a fraud probability and converts it into a risk score between 0 and 100.
+
+Risk categories were defined as:
+
+| Risk Score | Risk Category |
+|---:|---|
+| 0–39 | Low Risk |
+| 40–69 | Medium Risk |
+| 70–100 | High Risk |
+
+This makes the model output easier for business users, fraud analysts, and risk teams to interpret.
+
+A selected decision threshold of 0.3 was applied to flag suspicious transactions for further review.
