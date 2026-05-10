@@ -39,3 +39,35 @@ Feature scaling was applied using StandardScaler on:
 - Hour
 
 To prevent data leakage, scaling parameters were learned only from the training data and then applied to the test set.
+
+## Baseline Model Training
+
+Three baseline machine learning models were trained and evaluated:
+
+- Logistic Regression
+- Random Forest
+- XGBoost
+
+Because the dataset is highly imbalanced, accuracy was not used as the main performance measure. The main focus was on fraud recall, precision, F1-score, ROC-AUC, and confusion matrix results.
+
+## Model Performance Summary
+
+| Model | Fraud Precision | Fraud Recall | Fraud F1-score | ROC-AUC |
+|---|---:|---:|---:|---:|
+| Logistic Regression | 0.83 | 0.64 | 0.72 | 0.9574 |
+| Random Forest | 0.96 | 0.72 | 0.83 | 0.9530 |
+| XGBoost | 0.92 | 0.78 | 0.84 | 0.9485 |
+
+## Key Findings
+
+XGBoost achieved the best fraud recall, correctly identifying 76 out of 98 fraud cases. This makes it the strongest baseline model for detecting fraudulent transactions.
+
+Random Forest achieved the highest fraud precision at 0.96, meaning it produced very few false fraud alerts.
+
+Logistic Regression achieved the highest ROC-AUC score at 0.9574, showing strong overall class separation, but it detected fewer fraud cases compared with Random Forest and XGBoost.
+
+## Business Interpretation
+
+For fraud detection, recall is very important because missing fraudulent transactions can lead to financial loss. Based on the baseline results, XGBoost is currently the preferred model because it detected the highest number of fraud cases while maintaining strong precision.
+
+However, Random Forest may be useful in situations where reducing false alerts is more important.
