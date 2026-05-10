@@ -120,3 +120,26 @@ The dashboard includes:
 - Top 20 highest-risk transactions
 
 This dashboard simulates how fraud analysts or risk teams could monitor suspicious transactions and prioritise cases for review.
+
+## FastAPI Fraud Prediction API
+
+A FastAPI endpoint was created to expose the trained fraud detection model for real-time prediction.
+
+The API accepts transaction features and returns:
+
+- Fraud probability
+- Risk score
+- Risk category
+- Fraud prediction
+
+### Run API
+
+```bash
+uvicorn api.main:app --reload
+```
+
+### API documentation
+```bash
+http://127.0.0.1:8000/docs
+```
+
